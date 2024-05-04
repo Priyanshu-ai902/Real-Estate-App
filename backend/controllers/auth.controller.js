@@ -3,6 +3,8 @@ import bcryptjs from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 
+
+
 export const signup = async (req, res, next) => {
     const { username, email, password } = req.body;
     const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -25,7 +27,7 @@ export const signin = async (req, res, next) => {
 
         if (!validUser) return next(errorHandler(404, 'user not found!'));
 
-        const validPassword = bcryptjs.compare(password, validUser.password);
+        const validPassword = await bcryptjs.compare(password, validUser.password);
 
         if (!validPassword) return next(errorHandler(401, 'Invalid password!'));
 
