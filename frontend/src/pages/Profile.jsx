@@ -232,7 +232,9 @@ export default function Profile() {
 
               <div className="flex flex-col items-center">
                 <button onClick={() => handleListingDelete(listing._id)} className="text-red-400 uppercase">Delete</button>
+                <Link to={`/update-listing/${listing._id}`}>
                 <button className="text-green-500">Edit</button>
+                </Link>
 
               </div>
             </div>
