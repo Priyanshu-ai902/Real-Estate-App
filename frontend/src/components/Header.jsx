@@ -27,12 +27,13 @@ export default function Header() {
 
 
     return (
-        <header className='bg-blue-200 shadow-md sticky top-0 z-50'>
+        <header className='bg-blue-200 shadow-md sticky top-0 z-50 fixed'>
             <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
                 <Link to='/'>
                     <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
-                        <span className='text-slate-500'>Doco</span>
-                        <span className='text-slate-700'>pull</span>
+                        <img className='h-10 w-10' src="https://pngfre.com/wp-content/uploads/House-2.png" alt="logo" />
+                        <span className='text-slate-500 mt-2'>Doco</span>
+                        <span className='text-slate-700 mt-2'>pull</span>
                     </h1>
                 </Link>
 

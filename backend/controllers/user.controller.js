@@ -55,7 +55,7 @@ export const getUserListings = async (req, res, next) => {
         }
 
     } else {
-        return next(errorHandler(401, 'you can only view your listings!'))
+        return next(errorHandler(401, 'you can only view your listings!!!'))
     }
 }
 
