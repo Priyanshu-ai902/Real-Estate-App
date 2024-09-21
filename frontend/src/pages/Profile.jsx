@@ -149,100 +149,141 @@ export default function Profile() {
     }
   }
 
+
+
   return (
-    <div className='p-3 max-w-lg mx-auto'>
-
-      <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
-
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-
-        <input
-          onChange={(e) => {
-            const selectedFile = e.target.files[0];
-            setFile(selectedFile);
-          }}
-          type="file"
-          ref={fileRef}
-          hidden
-          accept="image/*" />
-
-        <img onClick={() => fileRef.current.click()}
-          src={formData.avatar || currentUser.avatar} alt="profile"
-          className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2" />
-
-        <p className="text-sm self-center">
-          {fileUploadError ? (
-            <span className="text-red-700">Error:image not upload (image must be less than 2 mb)</span>
-          ) : filePerc > 0 && filePerc < 100 ? (
-            <span className="text-blue-700">
-              {`Uploading ${filePerc}%`}
-            </span>
-          ) : filePerc === 100 ? (
-            <span className="text-green-700">image successfully uploaded</span>
-          ) : (
-            ""
-          )
-          }
-        </p>
-
-        <input type="text" placeholder="username" defaultValue={currentUser.username} id="username" className="border p-3 rounded-lg" onChange={handleChange} />
-
-        <input type="email" placeholder="email" defaultValue={currentUser.email} id="email" className="border p-3 rounded-lg" onChange={handleChange} />
-
-        <input type="password" placeholder="password" id="password" className="border p-3 rounded-lg" onChange={handleChange} />
-
-        <button disabled={loading} className="bg-blue-800 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80">
-          {loading ? 'Loading...' : 'Update'}
-        </button>
-        <Link className='bg-indigo-600 text-white p-3
-          rounded-lg uppercase text-center hover:opacity-95' to={"/create-listing"}>
-          Create Listing
-
-        </Link>
-      </form>
-
-      <div className="flex justify-between mt-5">
-        <span onClick={handleDeleteUser} className="text-red-500 cursor-pointer">Delete account</span>
-
-        <span onClick={handleSignOut} className="text-red-500 cursor-pointer">Sign out</span>
-      </div>
+    <div className="bg-gradient-to-r from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-5">
 
 
-      <p className="text-red-500 mt-5">{error ? error : ''}</p>
-      <p className="text-green-500 mt-5">{updateSuccess ? 'User is Updated Successfully....' : ''}</p>
-      <button onClick={handleShowListings} className="text-blue-500 w-full">Show Listings</button>
-      <p className="text-red-500 mt-5">{showListingsError ? 'Error showing listings' : ''}</p>
+      <div className="bg-white max-w-lg w-full mx-auto p-6 rounded-lg shadow-lg border border-gray-200">
+        <h1 className="text-3xl font-semibold text-center mb-7 text-gray-800">Profile</h1>
 
-      {
-        userListings &&
-        userListings.length > 0 &&
-        <div className="flex flex-col gap-4">
-          <h1 className="text-center mt-7 text-2xl font-semibold">Your Listings</h1>
-          {userListings.map((listing) => (
-            <div key={listing._id} className="border rounded-lg p-3 flex justify-between items-center gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 bg-gray-50 p-6 rounded-lg shadow-md">
+
+          <input
+            onChange={(e) => {
+              const selectedFile = e.target.files[0];
+              setFile(selectedFile);
+            }}
+            type="file"
+            ref={fileRef}
+            hidden
+            accept="image/*"
+          />
 
 
-              <Link to={`/listing/${listing._id}`}>
-                <img src={listing.imageUrls[0]} alt="listing cover" className="h-16 w-16 object-contain" />
-              </Link>
+          <img
+            onClick={() => fileRef.current.click()}
+            src={formData.avatar || currentUser.avatar}
+            alt="profile"
+            className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2 hover:opacity-90 shadow-md"
+          />
 
-              <Link className="text-blue-500 font-semibold flex-1 hover:underline truncate" to={`/listing/${listing._id}`}>
-                <p className="text-blue-500 font-semibold flex-1 hover:underline truncate">{listing.name}</p>
-              </Link>
 
-              <div className="flex flex-col items-center">
-                <button onClick={() => handleListingDelete(listing._id)} className="text-red-400 uppercase">Delete</button>
-                <Link to={`/update-listing/${listing._id}`}>
-                <button className="text-green-500">Edit</button>
+          <p className="text-sm text-center">
+            {fileUploadError ? (
+              <span className="text-red-700">Error: image not uploaded (image must be less than 2 MB)</span>
+            ) : filePerc > 0 && filePerc < 100 ? (
+              <span className="text-blue-600">{`Uploading ${filePerc}%`}</span>
+            ) : filePerc === 100 ? (
+              <span className="text-green-700">Image successfully uploaded</span>
+            ) : (
+              ""
+            )}
+          </p>
+
+
+          <input
+            type="text"
+            placeholder="Username"
+            defaultValue={currentUser.username}
+            id="username"
+            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"
+            onChange={handleChange}
+          />
+
+          <input
+            type="email"
+            placeholder="Email"
+            defaultValue={currentUser.email}
+            id="email"
+            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"
+            onChange={handleChange}
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            id="password"
+            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"
+            onChange={handleChange}
+          />
+
+          <button
+            disabled={loading}
+            className="bg-blue-600 text-white rounded-lg p-3 uppercase hover:bg-blue-700 transition-opacity disabled:opacity-80"
+          >
+            {loading ? 'Loading...' : 'Update'}
+          </button>
+
+          <Link
+            className="bg-indigo-600 text-white p-3 rounded-lg uppercase text-center hover:bg-indigo-700 transition-opacity"
+            to="/create-listing"
+          >
+            Create Listing
+          </Link>
+        </form>
+
+        <div className="flex justify-between mt-5">
+          <span onClick={handleDeleteUser} className="text-red-500 cursor-pointer hover:text-red-700">Delete account</span>
+          <span onClick={handleSignOut} className="text-red-500 cursor-pointer hover:text-red-700">Sign out</span>
+        </div>
+
+        <p className="text-red-500 mt-5">{error || ''}</p>
+        <p className="text-green-500 mt-5">{updateSuccess ? 'User updated successfully.' : ''}</p>
+
+        <button onClick={handleShowListings} className="text-blue-500 w-full hover:text-blue-700">Show Listings</button>
+        <p className="text-red-500 mt-5">{showListingsError ? 'Error showing listings' : ''}</p>
+
+        {userListings && userListings.length > 0 && (
+          <div className="flex flex-col gap-4 mt-7">
+            <h1 className="text-center text-2xl font-semibold text-gray-800">Your Listings</h1>
+            {userListings.map((listing) => (
+              <div key={listing._id} className="border border-gray-200 rounded-lg p-3 flex justify-between items-center gap-4 shadow-sm hover:shadow-lg transition-shadow bg-white">
+
+
+                <Link to={`/listing/${listing._id}`}>
+                  <img src={listing.imageUrls[0]} alt="listing cover" className="h-16 w-16 object-cover rounded-md shadow-md" />
                 </Link>
 
-              </div>
-            </div>
 
-          ))}
-        </div>}
+                <Link
+                  className="text-blue-500 font-semibold flex-1 hover:underline truncate"
+                  to={`/listing/${listing._id}`}
+                >
+                  {listing.name}
+                </Link>
+
+
+                <div className="flex flex-col items-center">
+                  <button
+                    onClick={() => handleListingDelete(listing._id)}
+                    className="text-red-400 uppercase hover:text-red-600"
+                  >
+                    Delete
+                  </button>
+                  <Link to={`/update-listing/${listing._id}`}>
+                    <button className="text-green-500 hover:text-green-700">Edit</button>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
+
 }
 
 
